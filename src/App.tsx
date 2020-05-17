@@ -15,10 +15,10 @@ const theme = createMuiTheme({
 });
 
 export const App = observer(() => {
-  const { clearUsers, numberOfUsers, afterCreate } = useUserData((store) => ({
+  const { clearUsers, numberOfUsers, addFake } = useUserData((store) => ({
     clearUsers: store.clearUsers,
     numberOfUsers: store.numberOfUsers,
-    afterCreate: store.afterCreate,
+    addFake: store.addFake,
   }));
 
   return (
@@ -45,7 +45,7 @@ export const App = observer(() => {
             color="secondary"
             size="small"
             disabled={numberOfUsers ? true : false}
-            onClick={afterCreate}
+            onClick={addFake}
           >
             Add Fake Users
           </Button>

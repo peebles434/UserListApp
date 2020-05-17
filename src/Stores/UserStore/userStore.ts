@@ -1,26 +1,14 @@
-import {
-  types,
-  cast,
-  SnapshotOrInstance,
-  Instance,
-  resolveIdentifier,
-} from "mobx-state-tree";
+import { types, SnapshotOrInstance, Instance } from "mobx-state-tree";
 import { USER_STORE } from "../constants";
 import { UserModel, IUserModelSnapshotOrInstance } from "Models";
 import { name, random } from "faker";
+import { getUsers, saveUsers } from "utils/localStorageHelpers";
 
 export const UserStore = types
   .model(USER_STORE, {
-    // users: types.array(UserModel),
     userMap: types.map(UserModel),
-    // currentUser: types.safeReference(UserModel),
   })
   .views((self) => ({
-    // NOTE: Array Functions
-    // get numberOfUsers() {
-    //   return self.users.length;
-    // },
-    // NOTE: Map Functions
     get numberOfUsers() {
       return self.userMap.size;
     },
@@ -31,53 +19,31 @@ export const UserStore = types
     },
   }))
   .actions((self) => ({
-    // NOTE: Array Functions
-    // setUsers(users: IUserModelSnapshotOrInstance[]) {
-    //   self.users = cast(users);
-    // },
-    // addUser(user: IUserModelSnapshotOrInstance) {
-    //   self.users.push(user);
-    // },
-    // deleteUser(index: number) {
-    //   self.users.splice(index, 1);
-    // },
-    // NOTE: Map Functions
     setUsers(users: { [id: string]: IUserModelSnapshotOrInstance }) {
       console.log(users);
       self.userMap.merge(users);
     },
     addUser(user: IUserModelSnapshotOrInstance) {
       self.userMap.set(user.id, user);
+      saveUsers(self.userMap.toJSON());
+    },
+    editUser(user: IUserModelSnapshotOrInstance) {
+      self.userMap.set(user.id, user);
+      saveUsers(self.userMap.toJSON());
     },
     deleteUser(key: string) {
       // NOTE: Maps keys will always be strings after created
       console.log(key);
       self.userMap.delete(key);
+      saveUsers(self.userMap.toJSON());
     },
     clearUsers() {
       self.userMap.clear();
+      saveUsers(self.userMap.toJSON());
     },
   }))
-  // .actions((self) => ({
-  //   setCurrentUser(userId: any) {
-  //     self.currentUser = userId;
-  //   },
-  // }))
-  // .actions((self) => {
-  // NOTE: resolveIdentifiers Allowed us to treat location of array items similar to map
-  //   function checkForUser(id: number) {
-  //     return resolveIdentifier(UserModel, self, id);
-  //   }
-  //   return { checkForUser };
-  // })
-  // .actions((self) => ({
-  //   getUserById(id: number) {
-  //     return self.checkForUser(id);
-  //   },
-  // }))
   .actions((self) => ({
-    afterCreate() {
-      // const tempUsersArr = [];
+    addFake() {
       let tempUsersArr: { [id: string]: IUserModelSnapshotOrInstance } = {};
       for (let i = 0; i < 5; i++) {
         let user = {
@@ -85,12 +51,18 @@ export const UserStore = types
           name: name.firstName(),
           age: random.number(100),
         };
-        // tempUsersArr.push(user);
         tempUsersArr[user.id] = user;
       }
 
       self.setUsers(tempUsersArr);
-      // self.setCurrentUser(self.users[2].id);
+    },
+  }))
+  .actions((self) => ({
+    afterCreate() {
+      const tempUsers = getUsers();
+      if (tempUsers) {
+        self.setUsers(tempUsers);
+      }
     },
   }));
 

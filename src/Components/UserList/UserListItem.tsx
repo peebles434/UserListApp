@@ -9,9 +9,10 @@ import {
   ListItemSecondaryAction,
   IconButton,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
 import { IUserModelInstance } from "Models";
-import { useUserData } from "Stores";
+
+import EditListItem from "./EditListItem";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,39 +25,25 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IUserListProps {
-  user: IUserModelInstance;
-}
+// interface IUserListProps {
+//   user: IUserModelInstance;
+// }
 
-export const UserListItem = observer((props: IUserListProps) => {
+export const UserListItem = observer(({ user }: { user: IUserModelInstance }) => {
   const classes = useStyles();
 
-  const { userMapToArray, deleteUser } = useUserData((store) => ({
-    userMapToArray: store.userMapToArray,
-    deleteUser: store.deleteUser,
-  }));
-
-  // NOTE: Delete user by Array Index
-  // const removeUser = (index: number) => () => {
-  //   console.log(index);
-  //   deleteUser(index);
-  // };
-
-  // NOTE: Delete user by Map Key (we used the items id)
-  const removeUser = (id: string) => () => {
-    deleteUser(id);
-  };
-
-  return (
+  return user.editMode ? (
+    <EditListItem user={user} />
+  ) : (
     <ListItem>
       <ListItemText
-        primary={props.user.name}
-        secondary={props.user.age}
+        primary={user.name}
+        secondary={user.age}
         className={classes.secondary}
       />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="delete" onClick={removeUser(props.user.id)}>
-          <DeleteIcon />
+        <IconButton edge="end" aria-label="delete" onClick={user.toggleEditMode}>
+          <CreateIcon />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
