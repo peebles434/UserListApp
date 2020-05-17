@@ -79,11 +79,11 @@ export const UserStore = types
     afterCreate() {
       // const tempUsersArr = [];
       let tempUsersArr: { [id: string]: IUserModelSnapshotOrInstance } = {};
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 5; i++) {
         let user = {
           id: random.number().toString(),
           name: name.firstName(),
-          age: random.number(),
+          age: random.number(100),
         };
         // tempUsersArr.push(user);
         tempUsersArr[user.id] = user;
