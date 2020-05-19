@@ -12,6 +12,8 @@ import {
 import CreateIcon from "@material-ui/icons/Create";
 import { ICarModelInstance } from "Models";
 
+import { EditCarListItem } from "./EditCarListItem";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItem: {
@@ -26,7 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export const CarListItem = observer(({ car }: { car: ICarModelInstance }) => {
   const classes = useStyles();
 
-  return (
+  return car.editMode ? (
+    <EditCarListItem car={car} />
+  ) : (
     <ListItem>
       <ListItemText
         primary={car.make}

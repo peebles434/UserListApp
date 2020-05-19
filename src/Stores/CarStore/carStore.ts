@@ -22,12 +22,22 @@ export const CarStore = types
   }))
   // NOTE: Actions are functions that we can call within our app.
   .actions((self) => ({
-    setUsers(cars: { [id: string]: ICarModelSnapshotOrInstance }) {
+    setCars(cars: { [id: string]: ICarModelSnapshotOrInstance }) {
       console.log(cars);
       self.carMap.merge(cars);
     },
-  }))
-  .actions((self) => ({
+    addCar(car: ICarModelSnapshotOrInstance) {
+      self.carMap.set(car.id, car);
+      saveCars(self.carMap.toJSON());
+    },
+    editCar(car: ICarModelSnapshotOrInstance) {
+      self.carMap.set(car.id, car);
+      saveCars(self.carMap.toJSON());
+    },
+    deleteCar(key: string) {
+      self.carMap.delete(key);
+      saveCars(self.carMap.toJSON());
+    },
     clearCars() {
       self.carMap.clear();
       saveCars(self.carMap.toJSON());
@@ -42,7 +52,7 @@ export const CarStore = types
     afterCreate() {
       const tempUsers = getCars();
       if (tempUsers) {
-        self.setUsers(tempUsers);
+        self.setCars(tempUsers);
       }
     },
   }));

@@ -23,6 +23,37 @@ export const CarModel = types
 
   .views((self) => ({}))
   //NOTE: Actions are functions we can call from our app to manipulate the model info
+  .actions((self) => {
+    function saveDraft(draft: typeof self.carDraft) {
+      self.carDraft = draft;
+    }
+    return { saveDraft };
+  })
+  .actions((self) => ({
+    setMake(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+      return self.saveDraft({
+        ...self.carDraft,
+        make: e.currentTarget.value,
+      });
+    },
+  }))
+  .actions((self) => ({
+    setModel(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+      return self.saveDraft({
+        ...self.carDraft,
+        model: e.currentTarget.value,
+      });
+    },
+  }))
+  .actions((self) => ({
+    setYear(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+      if (!e.currentTarget.value.match("(^[0-9]+$|^$)")) return false;
+      return self.saveDraft({
+        ...self.carDraft,
+        year: Number(e.currentTarget.value),
+      });
+    },
+  }))
   .actions((self) => ({
     resetVolatileState() {
       self.carDraft = {

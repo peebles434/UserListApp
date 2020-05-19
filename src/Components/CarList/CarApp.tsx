@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import { useCarData } from "Stores";
 import { AddCarForm } from "./AddCarForm";
 import { CarsList } from "./CarsList";
+import { GuiSwitch } from "../GuiSwitch";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,8 +26,7 @@ export const CarApp = observer(() => {
     <MuiThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
-          <h1> User List </h1>
-          {/* TODO: Create AddCarForm component */}
+          <h1> Car List </h1>
           <AddCarForm />
           <Button
             type="button"
@@ -38,7 +38,6 @@ export const CarApp = observer(() => {
           >
             Reset Cars
           </Button>
-          {/* TODO: Create CarsList component */}
           {<CarsList />}
           {numberOfCars ? numberOfCars : ""}
           <Button
@@ -51,6 +50,7 @@ export const CarApp = observer(() => {
           >
             Add Fake Cars
           </Button>
+          <GuiSwitch />
         </header>
       </div>
     </MuiThemeProvider>
