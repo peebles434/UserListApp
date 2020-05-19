@@ -43,7 +43,7 @@ export const UserStore = types
     },
   }))
   .actions((self) => ({
-    addFake() {
+    addFakeUsers() {
       let tempUsersArr: { [id: string]: IUserModelSnapshotOrInstance } = {};
       for (let i = 0; i < 5; i++) {
         let user = {

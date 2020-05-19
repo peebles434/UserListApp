@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { IRootStoreInstance, RootStoreContext } from "./rootStore";
 import { useObserver } from "mobx-react";
 import { IUserStoreInstance } from "./UserStore";
+import { ICarStoreInstance } from "./CarStore";
 
 export const useStoreFromContextHelper = <DataSelection, ContextData, MobXStore>(
   context: React.Context<ContextData>,
@@ -33,5 +34,14 @@ export const useUserData = <DataSelection>(
   useStoreFromContextHelper(
     RootStoreContext,
     (contextData) => contextData!.USER_STORE,
+    dataSelector,
+  );
+
+export const useCarData = <DataSelection>(
+  dataSelector: (store: ICarStoreInstance) => DataSelection,
+) =>
+  useStoreFromContextHelper(
+    RootStoreContext,
+    (contextData) => contextData!.CAR_STORE,
     dataSelector,
   );

@@ -8,7 +8,7 @@ import { observer } from "mobx-react";
 import { IUserModelInstance, IUserModelSnapshotOrInstance } from "Models";
 import { useUserData } from "Stores";
 
-const EditListItem = observer(({ user }: { user: IUserModelInstance }) => {
+export const EditUserListItem = observer(({ user }: { user: IUserModelInstance }) => {
   const { deleteUser, editUser } = useUserData((store) => ({
     deleteUser: store.deleteUser,
     editUser: store.editUser,
@@ -55,5 +55,3 @@ const EditListItem = observer(({ user }: { user: IUserModelInstance }) => {
     </div>
   );
 });
-
-export { EditListItem as default };

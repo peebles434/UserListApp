@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const AddUserForm = () => {
-  const classes = useStyles();
-
+export const AddUserForm = () => {
   const { addUser } = useUserData((store) => ({
     addUser: store.addUser,
   }));
@@ -68,5 +66,3 @@ const AddUserForm = () => {
     </div>
   );
 };
-
-export { AddUserForm as default };

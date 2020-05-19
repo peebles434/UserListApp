@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Grid, makeStyles, Theme, createStyles, Button } from "@material-ui/core";
+import { List, Grid, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { useUserData } from "Stores";
 import { UserListItem } from "./UserListItem";

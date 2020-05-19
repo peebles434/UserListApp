@@ -1,4 +1,4 @@
-import { IUserModelSnapshot } from "Models";
+import { IUserModelSnapshot, ICarModelSnapshot } from "Models";
 
 export const getUsers = () => {
   const users = localStorage.getItem("users");
@@ -7,4 +7,13 @@ export const getUsers = () => {
 
 export const saveUsers = (users: { [id: string]: IUserModelSnapshot }) => {
   localStorage.setItem("users", JSON.stringify(users));
+};
+
+export const getCars = () => {
+  const cars = localStorage.getItem("cars");
+  return cars ? JSON.parse(cars) : null;
+};
+
+export const saveCars = (cars: { [id: string]: ICarModelSnapshot }) => {
+  localStorage.setItem("cars", JSON.stringify(cars));
 };

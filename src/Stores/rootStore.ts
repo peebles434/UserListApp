@@ -7,11 +7,13 @@ import {
   getEnv as _getEnv,
   IAnyStateTreeNode,
 } from "mobx-state-tree";
-import { ROOT_STORE, USER_STORE } from "./constants";
+import { ROOT_STORE, USER_STORE, CAR_STORE } from "./constants";
 import { UserStore } from "./UserStore";
+import { CarStore } from "./CarStore";
 
 const RootStoreModel = types.model(ROOT_STORE, {
   [USER_STORE]: types.optional(UserStore, {}),
+  [CAR_STORE]: types.optional(CarStore, {}),
 });
 
 const getEnv: <T extends IRootStoreEnv>(target: IAnyStateTreeNode) => T = _getEnv;

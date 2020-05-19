@@ -12,7 +12,7 @@ import {
 import CreateIcon from "@material-ui/icons/Create";
 import { IUserModelInstance } from "Models";
 
-import EditListItem from "./EditListItem";
+import { EditUserListItem } from "./EditUserListItem";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,7 @@ export const UserListItem = observer(({ user }: { user: IUserModelInstance }) =>
   const classes = useStyles();
 
   return user.editMode ? (
-    <EditListItem user={user} />
+    <EditUserListItem user={user} />
   ) : (
     <ListItem>
       <ListItemText
