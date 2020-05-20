@@ -12,6 +12,7 @@ const theme = createMuiTheme({
   },
 });
 
+// TODO: Correct localStorage for userlist (it deletes on refresh)
 export const App = observer(() => {
   const { isCarMode } = useUserData((store) => ({
     isCarMode: store.isCarMode,

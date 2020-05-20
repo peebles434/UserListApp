@@ -22,11 +22,17 @@ export const AddUserForm = () => {
 
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState<number>(0);
+  const [userLocation, setUserLocation] = useState("");
 
   const addNewUser = (e: any) => {
     e.preventDefault();
-    if (userName && userAge) {
-      addUser({ id: random.number().toString(), name: userName, age: userAge });
+    if (userName && userAge && userLocation) {
+      addUser({
+        id: random.number().toString(),
+        name: userName,
+        age: userAge,
+        location: userLocation,
+      });
       setUserName("");
       setUserAge(0);
     }
@@ -39,6 +45,10 @@ export const AddUserForm = () => {
   const onAgeChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!e.currentTarget.value.match("(^[0-9]+$|^$)")) return false;
     setUserAge(Number(e.currentTarget.value));
+  };
+
+  const onLocationChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setUserLocation(e.currentTarget.value);
   };
 
   return (
@@ -56,6 +66,13 @@ export const AddUserForm = () => {
         value={userAge || ""}
         label="Age"
         onChange={onAgeChange}
+      />
+      <br />
+      <TextField
+        id="standard-basic"
+        value={userLocation}
+        label="Location"
+        onChange={onLocationChange}
       />
       <br />
       <Button variant="contained" color="primary" type="submit" onClick={addNewUser}>

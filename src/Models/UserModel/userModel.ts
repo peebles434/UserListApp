@@ -10,6 +10,7 @@ export const UserModel = types
     id: types.identifier,
     name: types.string,
     age: types.number,
+    location: types.string,
   })
   .volatile((self) => ({
     // NOTE: temp form for editing current user
@@ -17,6 +18,7 @@ export const UserModel = types
       id: self.id,
       name: self.name,
       age: self.age,
+      location: self.location,
     },
     editMode: false,
   }))
@@ -45,11 +47,20 @@ export const UserModel = types
     },
   }))
   .actions((self) => ({
+    setLocation(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+      return self.saveDraft({
+        ...self.userDraft,
+        location: e.currentTarget.value,
+      });
+    },
+  }))
+  .actions((self) => ({
     resetVolatileState() {
       self.userDraft = {
         id: self.id,
         name: self.name,
         age: self.age,
+        location: self.location,
       };
     },
   }))

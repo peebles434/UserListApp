@@ -38,7 +38,7 @@ export const UserListItem = observer(({ user }: { user: IUserModelInstance }) =>
     <ListItem>
       <ListItemText
         primary={user.name}
-        secondary={user.age}
+        secondary={`${user.age} - ${user.location}`}
         className={classes.secondary}
       />
       <ListItemSecondaryAction>

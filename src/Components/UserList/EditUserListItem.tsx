@@ -43,6 +43,13 @@ export const EditUserListItem = observer(({ user }: { user: IUserModelInstance }
         onChange={user.setAge}
       />
       <br />
+      <TextField
+        id="standard-basic"
+        value={user.userDraft.location}
+        label="Location"
+        onChange={user.setLocation}
+      />
+      <br />
       <IconButton edge="end" aria-label="delete" onClick={updateUser(user.userDraft)}>
         <DoneIcon />
       </IconButton>

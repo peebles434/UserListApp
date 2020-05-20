@@ -1,7 +1,7 @@
 import { types, SnapshotOrInstance, Instance } from "mobx-state-tree";
 import { USER_STORE } from "../constants";
 import { UserModel, IUserModelSnapshotOrInstance } from "Models";
-import { name, random } from "faker";
+import { name, random, address } from "faker";
 import { getUsers, saveUsers } from "utils/localStorageHelpers";
 
 export const UserStore = types
@@ -58,6 +58,7 @@ export const UserStore = types
           id: random.number().toString(),
           name: name.firstName(),
           age: random.number(100),
+          location: address.city(),
         };
         tempUsersArr[user.id] = user;
       }
