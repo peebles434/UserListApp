@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import { useUserData } from "Stores";
 import { UsersList } from "./UsersList";
 import { AddUserForm } from "./AddUserForm";
+import { GuiSwitch } from "../GuiSwitch";
 
 const theme = createMuiTheme({
   palette: {
@@ -48,6 +49,7 @@ export const UserApp = observer(() => {
           >
             Add Fake Users
           </Button>
+          <GuiSwitch />
         </header>
       </div>
     </MuiThemeProvider>

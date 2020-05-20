@@ -4,6 +4,7 @@ import "./App.css";
 import { observer } from "mobx-react";
 import { UserApp } from "./Components/UserList/UserApp";
 import { CarApp } from "./Components/CarList/CarApp";
+import { useUserData } from "Stores";
 
 const theme = createMuiTheme({
   palette: {
@@ -11,15 +12,15 @@ const theme = createMuiTheme({
   },
 });
 
-// TODO: Create functionality for GuiSwitch (sessionstore to track) and also add it to UserApp
 export const App = observer(() => {
+  const { isCarMode } = useUserData((store) => ({
+    isCarMode: store.isCarMode,
+  }));
+
   return (
     <MuiThemeProvider theme={theme}>
       <div className="App">
-        <header className="App-header">
-          {/* <UserApp /> */}
-          <CarApp />
-        </header>
+        <header className="App-header">{isCarMode ? <CarApp /> : <UserApp />}</header>
       </div>
     </MuiThemeProvider>
   );

@@ -8,9 +8,17 @@ export const UserStore = types
   .model(USER_STORE, {
     userMap: types.map(UserModel),
   })
+  .volatile((self) => ({
+    carMode: false,
+  }))
   .views((self) => ({
     get numberOfUsers() {
       return self.userMap.size;
+    },
+  }))
+  .views((self) => ({
+    get isCarMode() {
+      return self.carMode;
     },
   }))
   .views((self) => ({
@@ -55,6 +63,11 @@ export const UserStore = types
       }
 
       self.setUsers(tempUsersArr);
+    },
+  }))
+  .actions((self) => ({
+    toggleCarMode() {
+      self.carMode = !self.carMode;
     },
   }))
   .actions((self) => ({
