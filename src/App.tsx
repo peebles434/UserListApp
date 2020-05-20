@@ -12,7 +12,10 @@ const theme = createMuiTheme({
   },
 });
 
-// TODO: Correct localStorage for userlist (it deletes on refresh)
+// TODO: Add CarMode state to localStorage so page doesn't jump on refresh
+
+// TODO: Allow user to assign cars to the people on userlist
+
 export const App = observer(() => {
   const { isCarMode } = useUserData((store) => ({
     isCarMode: store.isCarMode,

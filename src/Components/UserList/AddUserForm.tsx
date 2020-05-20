@@ -35,6 +35,7 @@ export const AddUserForm = () => {
       });
       setUserName("");
       setUserAge(0);
+      setUserLocation("");
     }
   };
 

@@ -76,7 +76,7 @@ export const AddCarForm = () => {
       />
       <br />
       <Button variant="contained" color="primary" type="submit" onClick={addNewCar}>
-        Add New User
+        Add New Car
       </Button>
       <br />
     </div>
