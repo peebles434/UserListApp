@@ -2,14 +2,14 @@ import { types, SnapshotOrInstance, Instance } from "mobx-state-tree";
 import { USER_STORE } from "../constants";
 import { UserModel, IUserModelSnapshotOrInstance } from "Models";
 import { name, random, address } from "faker";
-import { getUsers, saveUsers } from "utils/localStorageHelpers";
+import { getUsers, saveUsers, saveMode, getMode } from "utils/localStorageHelpers";
 
 export const UserStore = types
   .model(USER_STORE, {
     userMap: types.map(UserModel),
   })
   .volatile((self) => ({
-    carMode: false,
+    carMode: getMode(),
   }))
   .views((self) => ({
     get numberOfUsers() {
@@ -62,13 +62,14 @@ export const UserStore = types
         };
         tempUsersArr[user.id] = user;
       }
-
       self.setUsers(tempUsersArr);
+      saveUsers(self.userMap.toJSON());
     },
   }))
   .actions((self) => ({
     toggleCarMode() {
       self.carMode = !self.carMode;
+      saveMode(self.carMode);
     },
   }))
   .actions((self) => ({

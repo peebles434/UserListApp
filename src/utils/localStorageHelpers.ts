@@ -17,3 +17,12 @@ export const getCars = () => {
 export const saveCars = (cars: { [id: string]: ICarModelSnapshot }) => {
   localStorage.setItem("cars", JSON.stringify(cars));
 };
+
+export const getMode = () => {
+  const mode = localStorage.getItem("mode");
+  return mode ? JSON.parse(mode) : false;
+};
+
+export const saveMode = (mode: any) => {
+  localStorage.setItem("mode", JSON.stringify(mode));
+};
